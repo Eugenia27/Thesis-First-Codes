@@ -61,5 +61,5 @@ class SurfaceBrightnessPlot():
         plt.xlabel('a' + ' ' + ' ' + ' [$kpc$]')
         plt.ylabel("$\mu$ [$mag/arcsec^{2}$]")
         plt.text(r_24 - 39, 22, 'a$_{\mu_{24}}$ = ' + r_24_s + ' kpc')
-        plt.savefig(self.path + '/muvsa.png')
-        plt.show()
+        #plt.savefig(self.path + '/muvsa.png')
+        #plt.show()

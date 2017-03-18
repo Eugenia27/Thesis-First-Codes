@@ -8,6 +8,8 @@ import 	profile as pr
 import	sbrightness_profile_plot as sbp
 import	intensity_profile_plot as sip
 import	maps as mps
+import accumulated_circular_mass as acm
+import relevant_results as rr
 #import	contour as cnt
 #import	mass_projection as mass
 import	accumulated_mass as am
@@ -86,15 +88,13 @@ if 1 == 0:
 	plot_mu.Plot()
 
 
-acc	=	am.AccumulatedMass(pos_1_flux,pos_2_flux,mu,mean_murnlog,path_region,path_mass_data)
-#graficar	=	input('-------- Calcular Masas Acumuladas? --------- ')
+accmasscirc = acm.AccumulatedMass(pos_1_flux , pos_2_flux , mean_munlog, mean_murnlog , particle_type , pos_x , pos_y , pos_z , _particle_mass , path_region )
+acc_masses_circ = accmasscirc.Acummulated()
 
-if 1 == 1:
-    semi,masas,dimens = acc.Acumuladas()
+relres = rr.RelevantResults(mean_munlog,mean_murnlog, acc_masses_circ,24,path_region)
+relres.PlotMassVSRadius(_reg)
 
-acc._MassPlot()
-acc._R50()
+#accmasscirc.AccumulatedMassCircPlot(24)
+#accmasscirc.HalfRadius()
 
 
-#print '***********************************************************************************************'
-#print 'Come Back For More!!'
