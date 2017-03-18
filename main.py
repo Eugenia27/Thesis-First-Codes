@@ -87,12 +87,12 @@ if 1 == 0:
 	plot_mu=sbp.SurfaceBrightnessPlot(mean_murylog,mean_muylog,True,path_region)
 	plot_mu.Plot()
 
+if 1==1:
+    accmasscirc = acm.AccumulatedMass(pos_1_flux , pos_2_flux , mean_munlog, mean_murnlog , particle_type , pos_x , pos_y , pos_z , _particle_mass , path_region )
+    acc_masses_circ = accmasscirc.Acummulated()
 
-accmasscirc = acm.AccumulatedMass(pos_1_flux , pos_2_flux , mean_munlog, mean_murnlog , particle_type , pos_x , pos_y , pos_z , _particle_mass , path_region )
-acc_masses_circ = accmasscirc.Acummulated()
-
-relres = rr.RelevantResults(mean_munlog,mean_murnlog, acc_masses_circ,24,path_region)
-relres.PlotMassVSRadius(_reg)
+    relres = rr.RelevantResults(mean_munlog,mean_murnlog, acc_masses_circ,24,path_region)
+    relres.PlotMassVSRadius(_reg)
 
 #accmasscirc.AccumulatedMassCircPlot(24)
 #accmasscirc.HalfRadius()

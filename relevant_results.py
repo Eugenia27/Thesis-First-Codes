@@ -29,6 +29,31 @@ class RelevantResults():
         a = (mass[index] - mass[index - 1]) / (mu[index] - mu[index - 1])
         b = mass[index] - a * mu[index]
         self.mass_mulimit = a * mulimit + b
+
+        ms = '%.3E' % dec.Decimal(str(self.mass_mulimit))
+
+        plt.rc('text', usetex=True)
+        font = {'family': 'serif', 'size': 16, 'serif': ['computer modern roman']}
+        plt.rc('font', **font)
+        plt.rc('legend', **{'fontsize': 14})
+        plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
+
+        textl = 'M$_{\mu_{24}}$ =' + ms + ' $M_{\odot}$'
+
+        plt.axhline(y=self.mass_mulimit , linewidth=1, color='r', linestyle='--')
+        plt.plot(mu, mass)
+        plt.legend([textl],frameon=False)
+
+        plt.xlim(np.amin(mu), np.amax(mu))
+        plt.ylim(-0.01*np.amin(mass), 1.2*np.amax(mass))
+
+        plt.xlabel("$\mu$ [$mag/arcsec^{2}$]")
+        plt.ylabel('M$_{\star}$ [$M_{\odot}$]')
+
+        plt.savefig(self.path + '/MassVsMu.png')
+
+        plt.show()
+
         return self.mass_mulimit
 
 
@@ -45,6 +70,26 @@ class RelevantResults():
         b=x1[1]-a*x1[0]
         self.mulimitradius=(mulimit-b)/a
         self.mulimitradius=np.round(self.mulimitradius,2)
+
+        plt.rc('text', usetex=True)
+        font = {'family': 'serif', 'size': 16, 'serif': ['computer modern roman']}
+        plt.rc('font', **font)
+        plt.rc('legend', **{'fontsize': 14})
+        plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
+
+        textl ='R$_{\mu_{24}}$ =' + str(self.mulimitradius) + ' Kpc'
+
+        plt.axvline(x=self.mulimitradius, linewidth=1, color='r', linestyle='--')
+        plt.plot(dist,mu)
+        plt.legend([textl],frameon=False)
+
+        plt.ylim([np.amin(mu) - 0.3, np.amax(mu) + 0.3])
+        plt.xlabel('R' + ' ' + ' ' + ' [$kpc$]')
+        plt.ylabel("$\mu$ [$mag/arcsec^{2}$]")
+
+        plt.savefig(self.path + '/MuVsR.png')
+        plt.show()
+
         return self.mulimitradius
 
 
@@ -61,6 +106,28 @@ class RelevantResults():
         b = dist[index] - a * mass[index]
         self.halfradius = b + a * ( self.mass_mulimit/2.)
         self.halfradius = round(self.halfradius, 2)
+
+        plt.rc('text', usetex=True)
+        font = {'family': 'serif', 'size': 16, 'serif': ['computer modern roman']}
+        plt.rc('font', **font)
+        plt.rc('legend', **{'fontsize': 14})
+        plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
+
+        textl ='R$_{50}$ =' + str(self.halfradius) + ' Kpc'
+
+        plt.axhline(y=self.halfradius, linewidth=1, color='r', linestyle='--')
+        plt.plot(mass, dist)
+        plt.legend([textl],frameon=False)
+
+        plt.xlim(np.amin(mass), np.amax(mass))
+        plt.ylim(0, 200)
+
+        plt.xlabel('M$_{\star}$ [$M_{\odot}$]')
+        plt.ylabel('R [Kpc]')
+
+        plt.savefig(self.path + '/RvsM.png')
+        plt.show()
+
         return self.halfradius
 
 

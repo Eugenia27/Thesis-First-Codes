@@ -25,10 +25,12 @@ class SpecificIntensityPlot():
         np.pi * (15 * np.random.rand(N)) ** 2
 
         plt.figure()
-        plt.ylim([np.amin(self.ie), np.amax(self.ie)])
-        plt.plot(self.r, self.ie, linestyle='--', marker='^', color='r')
+        plt.ylim([-2*np.amin(self.ie), np.amax(self.ie) + 0.05*np.amax(self.ie)])
+        #plt.plot(self.r, self.ie, linestyle='--', marker='^', color='r)
+        plt.plot(self.r, self.ie)
 
         plt.ylabel("I$_{e}$ [$erg s^{-1} cm^{-2} Hz^{-1} sr^{-1} $]")
+        plt.title('Specific Intensity vs R')
 
         if self.log == False:
             plt.xlabel("R [Kpc]")
