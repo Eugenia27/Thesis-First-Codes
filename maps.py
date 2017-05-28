@@ -26,8 +26,16 @@ class MapAndContours():
 
         plt.figure()
 
-        x = np.linspace(-1 * (len(x) ** 0.5) / 2., (len(x) ** 0.5) / 2., 250)
-        y = np.linspace(-1 * (len(y) ** 0.5) / 2., (len(y) ** 0.5) / 2., 250)
+        x = np.linspace(-1 * (len(x) ** 0.5) , (len(x) ** 0.5), 250)
+        y = np.linspace(-1 * (len(y) ** 0.5) , (len(y) ** 0.5), 250)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+        print 'longitud y = ', len(y), 'min y = ',np.min(y),'max y = ',np.max(y),'longitud x = ',len(x),'min x = ',np.min(x),'max x = ',np.max(x)
+
         N = int(len(mu) ** .5)
         x, y = np.meshgrid(x, y)
         mu = mu.reshape(N, N)
@@ -36,8 +44,12 @@ class MapAndContours():
 
         plt.colorbar(cp, ticks=[16,19, 22, 24, 27, 30, 33, 36, 39], label="$\mu$ [$mag/arcsec^{2}$]")
         plt.title('Surface Brightness Map in XY plane')
-
+        plt.xlabel("x [Kpc]")
+        plt.ylabel("y [Kpc]")
+        #plt.xlim(-300, 300)
+        #plt.ylim(-300, 300)
         plt.savefig(self.path + '/maps.png')
+        plt.savefig(self.path + '/maps.pdf', format='pdf',dpi=1300)
 
         plt.show()
 
@@ -56,16 +68,20 @@ class MapAndContours():
         N = int(len(mu) ** .5)
         mu = mu.reshape(N, N)
         mu = mu.transpose()
-        plt.imshow(mu, extent=(np.amin(x), np.amax(x), np.amin(y), np.amax(y)),cmap=cm.gist_ncar, norm=LogNorm(), origin='lower	')
+        plt.imshow(mu, extent=(np.amin(x), np.amax(x), np.amin(y), np.amax(y)),cmap='Paired', norm=LogNorm(), origin='lower	')
+
 
         levels = np.arange(20, 26, 1)
-        CS = plt.contour(mu, levels,linewidths=2, extent=(np.amin(x), np.amax(x), np.amin(y), np.amax(y)), cmap=cm.gist_heat)
+        CS = plt.contour(mu, levels,linewidths=2, extent=(np.amin(x), np.amax(x), np.amin(y), np.amax(y)), cmap='Paired')
+        plt.colorbar(CS, ticks=[20, 21, 22, 23, 24, 25, 26], label="$\mu$ [$mag/arcsec^{2}$]")
         clabel(CS, color="black", inline=True, fmt='%1.1f', fontsize=16, fontstyle="bold")
 
-        plt.xlim(-40, 40)
-        plt.ylim(-40, 40)
+        #plt.xlim(-125, 125)
+        #plt.ylim(-125, 125)
         plt.xlabel("x [Kpc]")
         plt.ylabel("y [Kpc]")
         plt.title("Surface Brightness Contours")
         #plt.savefig('output/contours.png')
+        plt.savefig(self.path + '/contoursmaps.png')
+        plt.savefig(self.path + '/contoursmaps.pdf', format='pdf',dpi=1300)
         plt.show()

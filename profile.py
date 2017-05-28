@@ -11,7 +11,7 @@ class Profile():
         self.path       = _path_region
         self.meanr      = np.zeros(_nbin)
         self.meanentity = np.zeros(_nbin)
-
+        self.type       = ''
 
     def _ProyDistance(self,x,y):
         distance = mt.sqrt(x*x+y*y)
@@ -41,9 +41,10 @@ class Profile():
         return boolean
 
 
-    def ProfilePointsNlog(self):
+    def ProfilePointsNlog(self,_type):
         nbin = self.nbin
         value = self.entity
+        self.type = _type
 
         mean_entitynlog = np.zeros(nbin)
         n_elementsnlog  = np.zeros(nbin)
@@ -62,15 +63,19 @@ class Profile():
 
         boolean = self._CheckBinnes(n_elementsnlog, False)
         if boolean == False:
-            self.ProfilePointsNlog()
+            self.ProfilePointsNlog(self.type)
         else:
-            self._MeanValues(self.path + '/mean_munlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
+            if self.type == 'mu':
+                self._MeanValues(self.path + '/mean_munlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
+            else:
+                self._MeanValues(self.path + '/mean_ienlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
             return True
 
 
-    def ProfilePointsYlog(self):
+    def ProfilePointsYlog(self, _type):
         nbin = self.nbin
         value = self.entity
+        self.type = _type
 
         mean_entityylog = np.zeros(nbin)
         n_elementsylog  = np.zeros(nbin)
@@ -91,12 +96,10 @@ class Profile():
         if boolean == False:
             if self.nbin < 5:
                 return False
-            self.ProfilePointsYlog()
+            self.ProfilePointsYlog(self.type)
         else:
-            self._MeanValues(self.path + '/mean_muylog.txt', minylog, stepylog, n_elementsylog, mean_rylog , mean_entityylog)
+            if self.type == 'mu':
+                self._MeanValues(self.path + '/mean_muylog.txt', minylog, stepylog, n_elementsylog, mean_rylog , mean_entityylog)
+            else:
+                self._MeanValues(self.path + '/mean_ieylog.txt', minylog, stepylog, n_elementsylog, mean_rylog , mean_entityylog)
             return True
-
-
-        # ellip = np.zeros(len(mean_rnlog))
-        # pa = np.zeros(len(mean_rnlog))
-        # np.savetxt(self.path + '/elipses.txt', np.c_[mean_rnlog, ellip, pa], fmt='%10.4g %10.4g %10.4g')

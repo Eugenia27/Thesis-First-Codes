@@ -38,7 +38,7 @@ class RelevantResults():
         plt.rc('legend', **{'fontsize': 14})
         plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
 
-        textl = 'M$_{\mu_{24}}$ =' + ms + ' $M_{\odot}$'
+        textl = 'M$_{\mu_{23}}$ =' + ms + ' $M_{\odot}$'
 
         plt.axhline(y=self.mass_mulimit , linewidth=1, color='r', linestyle='--')
         plt.plot(mu, mass)
@@ -77,7 +77,7 @@ class RelevantResults():
         plt.rc('legend', **{'fontsize': 14})
         plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
 
-        textl ='R$_{\mu_{24}}$ =' + str(self.mulimitradius) + ' Kpc'
+        textl ='R$_{\mu_{23}}$ =' + str(self.mulimitradius) + ' Kpc'
 
         plt.axvline(x=self.mulimitradius, linewidth=1, color='r', linestyle='--')
         plt.plot(dist,mu)
@@ -131,7 +131,7 @@ class RelevantResults():
         return self.halfradius
 
 
-    def PlotMassVSRadius(self,_reg):
+    def PlotMassVSRadius(self,_reg,_snap,_progtype):
         mass    = self.masscirc
         dist    = self.radius
 
@@ -146,9 +146,12 @@ class RelevantResults():
         plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
 
         ms = '%.3E' % dec.Decimal(str(ml))
-        textm='M$_{\mu_{24}}$ =  ' + ms + ' $M_{\odot}$'
-        texts='R$_{\mu_{24}}$ =  ' + str(rl) + ' Kpc'
+        textm='M$_{\mu_{23}}$ =  ' + ms + ' $M_{\odot}$'
+        texts='R$_{\mu_{23}}$ =  ' + str(rl) + ' Kpc'
         textr='R$_{50}$ =' + str(hr) + ' Kpc'
+
+        plt.xlim(0,150)
+        plt.ylim(np.min(mass),mass[77])
 
         plt.annotate(textm, xy=(1, 1), xytext=(-15, -275), fontsize=18,
                  xycoords='axes fraction', textcoords='offset points',
@@ -164,13 +167,14 @@ class RelevantResults():
 
         plt.xlabel('R [Kpc]')
         plt.ylabel('M$_{\star}$ [$M_{\odot}$]')
-        plt.title('Reg '+ str(_reg))
+        plt.title('D'+ str(_reg+1))
 
         myfile = open('/home/meugenia/Documentos/masas_italia/results.txt','a')
-        line = str(_reg)+'\t'+str(ml)+'\t'+str(rl)+'\t'+str(hr)
+        line = 'D'+str(_reg+1)+'\t'+_snap+'\t'+_progtype+'\t'+str(ml)+'\t'+str(rl)+'\t'+str(hr)
         myfile.write(line +'\n')
 
         plt.plot(dist,mass)
+        plt.scatter(dist,mass,color='red')
         plt.savefig(self.path + '/mvr.png')
         plt.show()
 
