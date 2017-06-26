@@ -51,7 +51,7 @@ class Profile():
         mean_rnlog      = np.zeros(nbin)
 
         rnlog = [self._ProyDistance(x,y) for x, y in zip(self.x, self.y)]
-        [maxnlog, minnlog] = [np.amax(rnlog), np.amin(rnlog)]
+        [maxnlog, minnlog] = [np.amax(rnlog), 0]#np.amin(rnlog)]
         stepnlog = (maxnlog - minnlog) / float(nbin)
 
         for rn, val in zip(rnlog, value):
@@ -66,9 +66,11 @@ class Profile():
             self.ProfilePointsNlog(self.type)
         else:
             if self.type == 'mu':
-                self._MeanValues(self.path + '/mean_munlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
+                #self._MeanValues(self.path + '/mean_munlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
+                self._MeanValues(self.path + '/mean_munlog.txt', 0, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
             else:
-                self._MeanValues(self.path + '/mean_ienlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
+                #self._MeanValues(self.path + '/mean_ienlog.txt', minnlog, stepnlog, n_elementsnlog, mean_rnlog , mean_entitynlog)
+                self._MeanValues(self.path + '/mean_munlog.txt', 0, stepnlog, n_elementsnlog, mean_rnlog,  mean_entitynlog)
             return True
 
 

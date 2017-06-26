@@ -28,8 +28,8 @@ class SurfaceBrightnessPlot():
 
         plt.figure()
         plt.ylim([np.amax(self.mu) + 0.5, np.amin(self.mu) - 0.5])
-        plt.plot(self.r, self.mu)
-        plt.scatter(self.r, self.mu, color='red')
+        plt.plot(self.r, self.mu, color='#006241')
+        plt.scatter(self.r, self.mu, color='#330035')
 
         plt.ylabel("$\mu$ [$mag/arcsec^{2}$]")
         plt.title('Surface Brightness vs R')
